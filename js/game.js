@@ -132,7 +132,7 @@ window.GAME = (function() {
         		clickCanvas: function (e) {
         			//console.log(e);
                     console.log("hey");
-                    _V.els.characters.luchador.sprite.gotoAndPlay("jump");
+                    
                     _V.els.characters.luchador.isJumping = true;
                     //var start = createjs.Ticker.getTicks();
         		}
@@ -140,9 +140,14 @@ window.GAME = (function() {
         	tick: function () {
 
         		// _V.els.decor.theTerrain.sprite.x = 
-                if (createjs.Ticker.getTicks() > 20) {
+                /*if (createjs.Ticker.getTicks() > 20) {
                         console.log("woah");
-                    }  
+                    }  */
+
+                while (_V.els.characters.luchador.isJumping == true) {
+                    //console.log('what?');
+                    _V.els.characters.luchador.sprite.gotoAndPlay("jump");
+                }
         		_V.els.stage.update();
         	}
         }
