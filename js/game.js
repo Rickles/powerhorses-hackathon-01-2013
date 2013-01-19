@@ -32,8 +32,14 @@ window.GAME = (function() {
 
                 _V.els.stage.addChild(_V.els.characters.barrel.sprite);
                 _V.els.characters.barrel.sprite.x = 500;
-                _V.els.characters.barrel.sprite.y = 300;
+                _V.els.characters.barrel.sprite.y = 295;
                 _V.els.characters.barrel.sprite.gotoAndStop(0);
+
+                _V.els.stage.addChild(_V.els.characters.chili.sprite);
+                _V.els.characters.chili.sprite.x = 800;
+                _V.els.characters.chili.sprite.y = 180;
+                _V.els.characters.chili.sprite.gotoAndStop(0);
+
         	},  
         	els: {
         		window:                     $(window),
@@ -62,7 +68,7 @@ window.GAME = (function() {
                                                                     "images": ["img/spritesheets/barrel.png"],
                                                                     "frames": [[2, 2, 76, 97, 0, -2, -2]]
 															 	}
-                								} 
+                								}, 
                                                 chili:     {
                                                                 data: {
                                                                     "animations": {
