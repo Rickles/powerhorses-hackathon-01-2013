@@ -120,8 +120,7 @@ window.GAME = (function() {
                 _V.init();
 
                 _V.els.stage.onMouseMove = _C.events.moveCanvas;
-				//_V.els.stage.onMouseDown = _C.events.clickCanvas;
-                _V.els.decor.theSun.data.frames.onPress = _C.events.clickCanvas;
+				_V.els.stage.onMouseDown = _C.events.clickCanvas;
 
                 createjs.Ticker.setFPS(20);
  				createjs.Ticker.addListener(_C.tick);
@@ -132,10 +131,7 @@ window.GAME = (function() {
         		},
         		clickCanvas: function (e) {
         			console.log(e);
-        		},
-                clickSun: function () {
-                    console.log("what up");
-                }
+        		}
         	},
         	tick: function () {
 
