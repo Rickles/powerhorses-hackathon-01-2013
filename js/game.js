@@ -25,7 +25,8 @@ window.GAME = (function() {
         			_V.els.decor[decorElement].sprite = new createjs.BitmapAnimation(new createjs.SpriteSheet(_V.els.decor[decorElement].data));
         		};
         		_V.els.decor.theTerrain.sprite.x = 0;
-        		_V.els.decor.theTerrain.sprite.y = 0;
+        		_V.els.decor.theTerrain.sprite.y = 70;
+        		_V.els.decor.theTerrain.sprite.gotoAndPlay(1);
         		_V.els.stage.addChild(_V.els.decor.theTerrain.sprite);
         		console.log(_V.els.stage);
         	},
