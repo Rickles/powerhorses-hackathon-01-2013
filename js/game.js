@@ -26,9 +26,9 @@ window.GAME = (function() {
         		};
         		_V.buildEnvironment();
                 _V.els.stage.addChild(_V.els.characters.luchador.sprite);
-                _V.els.characters.luchador.sprite.x = 40;
+                _V.els.characters.luchador.sprite.x = 200;
                 _V.els.characters.luchador.sprite.y = 120;
-                _V.els.characters.luchador.sprite.gotoAndPlay("stand");
+                _V.els.characters.luchador.sprite.gotoAndPlay("run");
         	},
         	els: {
         		window:                     $(window),
@@ -36,7 +36,12 @@ window.GAME = (function() {
                 stage: 						new createjs.Stage(document.getElementById('gameCanvas')),
                 characters: 				{
                 								luchador: 	{
-                												data: {"animations": {"jump": {"frames": [8]}, "run": {"frames": [1, 2, 2, 3, 4, 5, 5, 6, 7]}, "stand": {"frames": [0]}}, "images": ["img/spritesheets/luchador-spritesheet.png"], "frames": [[200, 2, 112, 209, 0, -19, -37], [632, 2, 111, 200, 0, -21, -41], [866, 2, 119, 196, 0, -15, -45], [747, 2, 115, 196, 0, -29, -45], [481, 2, 147, 200, 0, -11, -42], [316, 2, 161, 200, 0, -2, -42], [99, 2, 97, 210, 0, -22, -34], [2, 2, 93, 210, 0, -29, -34], [2, 216, 172, 180, 0, 0, -14]]
+                												data: {"animations":
+                                                                    {"jump": {"frames": [8]},
+                                                                    "run": {"frames": [1, 2, 2, 3, 4, 5, 5, 6, 7]},
+                                                                    "stand": {"frames": [0]}}, "images": ["img/spritesheets/luchador-spritesheet.png"],
+
+                                                                    "frames": [[200, 2, 112, 209, 0, -19, -37], [632, 2, 111, 200, 0, -21, -41], [866, 2, 119, 196, 0, -15, -45], [747, 2, 115, 196, 0, -29, -45], [481, 2, 147, 200, 0, -11, -42], [316, 2, 161, 200, 0, -2, -42], [99, 2, 97, 210, 0, -22, -34], [2, 2, 93, 210, 0, -29, -34], [2, 216, 172, 180, 0, 0, -14]]
 															 	}
                 								},
                 								bunny: 	{
