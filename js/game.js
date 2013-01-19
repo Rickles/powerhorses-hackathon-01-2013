@@ -28,7 +28,7 @@ window.GAME = (function() {
                 _V.els.stage.addChild(_V.els.characters.luchador.sprite);
                 _V.els.characters.luchador.sprite.x = 40;
                 _V.els.characters.luchador.sprite.y = 120;
-                _V.els.characters.luchador.sprite.gotoAndPlay("run");
+                _V.els.characters.luchador.sprite.gotoAndPlay("stand");
         	},
         	els: {
         		window:                     $(window),
@@ -36,15 +36,7 @@ window.GAME = (function() {
                 stage: 						new createjs.Stage(document.getElementById('gameCanvas')),
                 characters: 				{
                 								luchador: 	{
-                												data: {
-															 		images: ["img/spritesheets/luchador-spritesheet.png"],
-															 		frames: {width:140,height:255,regX:0,regY:0},
-                                                                    animations: {
-                                                                        // start, end, next, frequency
-                                                                        run: [1, 7],
-                                                                        jump: [8, "run"],
-                                                                        stand: [0]
-                                                                    }
+                												data: {"animations": {"jump": {"frames": [8]}, "run": {"frames": [1, 2, 2, 3, 4, 5, 5, 6, 7]}, "stand": {"frames": [0]}}, "images": ["img/spritesheets/luchador-spritesheet.png"], "frames": [[200, 2, 112, 209, 0, -19, -37], [632, 2, 111, 200, 0, -21, -41], [866, 2, 119, 196, 0, -15, -45], [747, 2, 115, 196, 0, -29, -45], [481, 2, 147, 200, 0, -11, -42], [316, 2, 161, 200, 0, -2, -42], [99, 2, 97, 210, 0, -22, -34], [2, 2, 93, 210, 0, -29, -34], [2, 216, 172, 180, 0, 0, -14]]
 															 	}
                 								},
                 								bunny: 	{
@@ -66,13 +58,21 @@ window.GAME = (function() {
                 													images: ["img/spritesheets/terrain.png"],
 															 		frames: {width:1920,height:331,regX:0,regY:0}
                 												}
-                								}
+                								},
+                                                theClouds: {
+                                                                data: {
+                                                                    images: ["img/spritesheets/cloud.png"],
+                                                                    frames: {width:120,height:55,regX:0,regY:0}
+                                                                }
+                                                }
                 							}
         	},
         	buildEnvironment: function () {
         		var theTerrain = _V.els.decor.theTerrain.sprite,
+                    theClouds = _V.els.decor.theClouds.sprite,
         			theSun = _V.els.decor.theSun.sprite;
-        		theSun.x = 100;
+
+        		theSun.x = 800;
         		theSun.y = 10;
         		theSun.gotoAndPlay(1);
         		_V.els.stage.addChild(theSun);
@@ -81,6 +81,12 @@ window.GAME = (function() {
         		theTerrain.y = 70;
         		theTerrain.gotoAndPlay(1);
         		_V.els.stage.addChild(theTerrain);
+
+                theClouds.x = 0;
+                theClouds.y = 70;
+                theClouds.vX = 2;
+                theClouds.gotoAndStop(0);
+                _V.els.stage.addChild(theClouds);
         	}
         },
 
