@@ -12,7 +12,7 @@ window.GAME = (function() {
 
     	/* MODEL */
         model: {
-
+            speed: 1
         },
 
         /* VIEW */
@@ -91,7 +91,8 @@ window.GAME = (function() {
         			theSun = _V.els.decor.theSun.sprite;
 
         		theSun.x = 800;
-        		theSun.y = 10;
+        		theSun.y = 10
+                theSun.vX = _M.speed / 8;
         		theSun.gotoAndPlay(1);
         		_V.els.stage.addChild(theSun);
 
@@ -102,8 +103,8 @@ window.GAME = (function() {
 
                 theClouds.x = 0;
                 theClouds.y = 70;
-                theClouds.vX = 2;
-                theClouds.gotoAndStop(0);
+                theClouds.vX = _M.speed * Math.random();
+                theClouds.gotoAndStop(Math.floor(Math.random()*3));
                 _V.els.stage.addChild(theClouds);
         	}
         },
@@ -119,8 +120,7 @@ window.GAME = (function() {
                 _V.init();
 
                 _V.els.stage.onMouseMove = _C.events.moveCanvas;
-				//_V.els.stage.onMouseDown = _C.events.clickCanvas;
-                _V.els.decor.theSun.data.frames.onPress = _C.events.clickCanvas;
+				_V.els.stage.onMouseDown = _C.events.clickCanvas;
 
                 createjs.Ticker.setFPS(20);
  				createjs.Ticker.addListener(_C.tick);
@@ -131,10 +131,7 @@ window.GAME = (function() {
         		},
         		clickCanvas: function (e) {
         			console.log(e);
-        		},
-                clickSun: function () {
-                    console.log("what up");
-                }
+        		}
         	},
         	tick: function () {
 
