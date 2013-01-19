@@ -27,12 +27,12 @@ window.GAME = (function() {
         		_V.buildEnvironment();
                 _V.els.stage.addChild(_V.els.characters.luchador.sprite);
                 _V.els.characters.luchador.sprite.x = 200;
-                _V.els.characters.luchador.sprite.y = 120;
+                _V.els.characters.luchador.sprite.y = 110;
                 _V.els.characters.luchador.sprite.gotoAndPlay("run");
 
                 _V.els.stage.addChild(_V.els.characters.barrel.sprite);
                 _V.els.characters.barrel.sprite.x = 500;
-                _V.els.characters.barrel.sprite.y = 275;
+                _V.els.characters.barrel.sprite.y = 300;
                 _V.els.characters.barrel.sprite.gotoAndStop(0);
         	},  
         	els: {
