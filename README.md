@@ -1,1 +1,2 @@
-"HI, we can all be friends!""
+"HI!"
+"I respect Rick more than you'll know."
