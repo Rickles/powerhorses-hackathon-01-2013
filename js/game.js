@@ -24,6 +24,7 @@ window.GAME = (function() {
         		for (var decorElement in _V.els.decor) {
         			_V.els.decor[decorElement].sprite = new createjs.BitmapAnimation(new createjs.SpriteSheet(_V.els.decor[decorElement].data));
         		};
+        		_V.buildEnvironment();
         	},
         	els: {
         		window:                     $(window),
@@ -42,15 +43,27 @@ window.GAME = (function() {
 															 		frames: {width:21,height:23,regX:10,regY:11}
 															 	}
                 								} 
-                },
-                decor: 				{
+                							},
+                decor: 						{
                 								theSun: 	{
                 												data: {
-															 		images: ["img/spritesheets/luchadorTEST.png"],
-															 		frames: {width:21,height:23,regX:10,regY:11}
+															 		images: ["img/spritesheets/sun.png"],
+															 		frames: {width:89,height:105,regX:0,regY:0}
 															 	}
-                								} 
-                }
+                								},
+                								theTerrain: {
+                												data: {
+                													images: ["img/spritesheets/terrain.png"],
+															 		frames: {width:1920,height:331,regX:0,regY:0}
+                												}
+                								}
+                							}
+        	},
+        	buildEnvironment: function () {
+        		_V.els.decor.theTerrain.sprite.x = 0;
+        		_V.els.decor.theTerrain.sprite.y = 70;
+        		_V.els.decor.theTerrain.sprite.gotoAndPlay(1);
+        		_V.els.stage.addChild(_V.els.decor.theTerrain.sprite);
         	}
         },
 
@@ -63,8 +76,6 @@ window.GAME = (function() {
                 _C = GAME.controller;
 
                 _V.init();
-
-                console.log(_V.els.characters);
 
                 _V.els.stage.onMouseMove = _C.events.moveCanvas;
 				_V.els.stage.onMouseDown = _C.events.clickCanvas;
@@ -81,7 +92,7 @@ window.GAME = (function() {
         		}
         	},
         	tick: function () {
-        		// console.log("ticker");
+        		_V.els.stage.update();
         	}
         }
     }
@@ -91,9 +102,6 @@ window.GAME = (function() {
 $(document).ready(function() {
     GAME.controller.init();
 });
-
-
-
 
  // var canvas;
  // var stage;
