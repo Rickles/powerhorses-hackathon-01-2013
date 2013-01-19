@@ -63,6 +63,17 @@ window.GAME = (function() {
                                                                     "frames": [[2, 2, 76, 97, 0, -2, -2]]
 															 	}
                 								} 
+                                                chili:     {
+                                                                data: {
+                                                                    "animations": {
+                                                                                "all": {
+                                                                                    "frames": [0]
+                                                                                }
+                                                                    },
+                                                                    "images": ["img/spritesheets/chili.png"],
+                                                                    "frames": [[2, 2, 18, 48, 0, -1, -1]]
+                                                                }
+                                                } 
                 							},
                 decor: 						{
                 								theSun: 	{
