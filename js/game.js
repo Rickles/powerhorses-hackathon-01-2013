@@ -131,7 +131,14 @@ window.GAME = (function() {
         			// console.log("move");
         		},
         		clickCanvas: function (e) {
-        			console.log(e);
+        			//console.log(e);
+                    console.log("hey");
+                    _V.els.characters.luchador.sprite.gotoAndPlay("jump");
+                    var start = createjs.Ticker.getTicks();
+                        console.log (start);
+                    if (createjs.Ticker.getTicks() > (start + 20)) {
+                        console.log("woah");
+                    }        
         		}
         	},
         	tick: function () {
