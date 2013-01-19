@@ -70,10 +70,17 @@ window.GAME = (function() {
                 							}
         	},
         	buildEnvironment: function () {
-        		_V.els.decor.theTerrain.sprite.x = 0;
-        		_V.els.decor.theTerrain.sprite.y = 70;
-        		_V.els.decor.theTerrain.sprite.gotoAndPlay(1);
-        		_V.els.stage.addChild(_V.els.decor.theTerrain.sprite);
+        		var theTerrain = _V.els.decor.theTerrain.sprite,
+        			theSun = _V.els.decor.theSun.sprite;
+        		theSun.x = 100;
+        		theSun.y = 10;
+        		theSun.gotoAndPlay(1);
+        		_V.els.stage.addChild(theSun);
+
+        		theTerrain.x = 0;
+        		theTerrain.y = 70;
+        		theTerrain.gotoAndPlay(1);
+        		_V.els.stage.addChild(theTerrain);
         	}
         },
 
@@ -102,6 +109,9 @@ window.GAME = (function() {
         		}
         	},
         	tick: function () {
+
+        		_V.els.decor.theTerrain.sprite
+
         		_V.els.stage.update();
         	}
         }
