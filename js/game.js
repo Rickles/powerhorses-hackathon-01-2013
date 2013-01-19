@@ -100,7 +100,7 @@ window.GAME = (function() {
         	},
         	tick: function () {
 
-        		_V.els.decor.theTerrain.sprite
+        		// _V.els.decor.theTerrain.sprite.x = 
 
         		_V.els.stage.update();
         	}
