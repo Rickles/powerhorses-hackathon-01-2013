@@ -42,7 +42,7 @@ window.GAME = (function() {
                                                                     animations: {
                                                                         // start, end, next, frequency
                                                                         run: [1, 7],
-                                                                        jump: [8, "run",2],
+                                                                        jump: [8, "run"],
                                                                         stand: [0]
                                                                     }
 															 	}
