@@ -25,6 +25,10 @@ window.GAME = (function() {
         			_V.els.decor[decorElement].sprite = new createjs.BitmapAnimation(new createjs.SpriteSheet(_V.els.decor[decorElement].data));
         		};
         		_V.buildEnvironment();
+                _V.els.stage.addChild(_V.els.characters.luchador.sprite);
+                _V.els.characters.luchador.sprite.x = 40;
+                _V.els.characters.luchador.sprite.y = 120;
+                _V.els.characters.luchador.sprite.gotoAndPlay("run");
         	},
         	els: {
         		window:                     $(window),
@@ -34,8 +38,13 @@ window.GAME = (function() {
                 								luchador: 	{
                 												data: {
 															 		images: ["img/spritesheets/luchador-spritesheet.png"],
-															 		frames: {width:21,height:23,regX:10,regY:11}
-                                                                    
+															 		frames: {width:140,height:255,regX:0,regY:0},
+                                                                    animations: {
+                                                                        // start, end, next, frequency
+                                                                        run: [1, 7, 1],
+                                                                        jump: [8, "run",2],
+                                                                        stand: [0]
+                                                                    }
 															 	}
                 								},
                 								bunny: 	{
