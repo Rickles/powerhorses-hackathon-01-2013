@@ -36,8 +36,9 @@ window.GAME = (function() {
                 characters: 				{
                 								luchador: 	{
                 												data: {
-															 		images: ["img/spritesheets/luchadorTEST.png"],
+															 		images: ["img/spritesheets/luchador-spritesheet.png"],
 															 		frames: {width:21,height:23,regX:10,regY:11}
+                                                                    
 															 	}
                 								},
                 								bunny: 	{
