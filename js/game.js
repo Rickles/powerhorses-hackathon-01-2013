@@ -28,7 +28,7 @@ window.GAME = (function() {
                 _V.els.stage.addChild(_V.els.characters.luchador.sprite);
                 _V.els.characters.luchador.sprite.x = 40;
                 _V.els.characters.luchador.sprite.y = 120;
-                _V.els.characters.luchador.sprite.gotoAndPlay("stand");
+                _V.els.characters.luchador.sprite.gotoAndPlay("run");
         	},
         	els: {
         		window:                     $(window),
@@ -41,7 +41,7 @@ window.GAME = (function() {
 															 		frames: {width:140,height:255,regX:0,regY:0},
                                                                     animations: {
                                                                         // start, end, next, frequency
-                                                                        run: [1, 7, 1],
+                                                                        run: [1, 7],
                                                                         jump: [8, "run",2],
                                                                         stand: [0]
                                                                     }
