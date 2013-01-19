@@ -98,12 +98,13 @@ window.GAME = (function() {
 
         		theTerrain.x = 0;
         		theTerrain.y = 70;
+                theTerrain.vX = _M.speed;
         		theTerrain.gotoAndPlay(1);
         		_V.els.stage.addChild(theTerrain);
 
                 theClouds.x = 0;
                 theClouds.y = 70;
-                theClouds.vX = _M.speed * Math.random();
+                theClouds.vX = (_M.speed * Math.random())+1;
                 theClouds.gotoAndStop(Math.floor(Math.random()*3));
                 _V.els.stage.addChild(theClouds);
         	}
