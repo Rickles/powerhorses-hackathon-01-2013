@@ -28,7 +28,7 @@ window.GAME = (function() {
                 _V.els.stage.addChild(_V.els.characters.luchador.sprite);
                 _V.els.characters.luchador.sprite.x = 40;
                 _V.els.characters.luchador.sprite.y = 120;
-                _V.els.characters.luchador.sprite.gotoAndPlay("run");
+                _V.els.characters.luchador.sprite.gotoAndPlay("stand");
         	},
         	els: {
         		window:                     $(window),
