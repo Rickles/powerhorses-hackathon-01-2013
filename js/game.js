@@ -75,8 +75,10 @@ window.GAME = (function() {
                                                                     "images": ["img/spritesheets/luchador-spritesheet.png"],
                                                                     "frames": [[190, 0, 112, 209, 0, -19, -37], [610, 0, 111, 200, 0, -21, -41], [836, 0, 119, 196, 0, -15, -45], [721, 0, 115, 196, 0, -29, -45], [463, 0, 147, 200, 0, -11, -42], [302, 0, 161, 200, 0, -2, -42], [0, 0, 97, 210, 0, -22, -34], [97, 0, 93, 210, 0, -29, -34], [391, 210, 172, 180, 0, 0, -14], [0, 210, 126, 190, 0, -12, -51], [251, 210, 140, 184, 0, -2, -55], [126, 210, 125, 185, 0, -5, -55]],
                                                                     "animations": {"stand": {"frames": [0]}, "all": {"frames": [11]}, "jump": {"frames": [8]}, "run": {"frames": [1, 2, 2, 3, 4, 5, 5, 6, 7]}, "ouch": {"frames": [9, 10, 11, 9, 10, 11]}}
-                                                                }
+                                                                },
                                                                 //170 x 250
+                                                                width: 150,
+                                                                height: 220
                                                 }
                 							},
                 obstacles:                  {
@@ -181,6 +183,7 @@ window.GAME = (function() {
 
                 _V.els.stage.onMouseMove = _C.events.moveCanvas;
 				_V.els.stage.onMouseDown = _C.events.clickCanvas;
+                _V.els.stage.onMouseUp = _C.events.releaseClickCanvas;
 
                 _C.gesture.startX = -1;
                 _C.gesture.startY = -1;
@@ -191,45 +194,50 @@ window.GAME = (function() {
         	},
         	events: {
         		moveCanvas: function (e) {
-                    if ( _C.gesture.startX < 0 && _C.gesture.startY < 0  && _C.gesture.timeout < 0) {
-                        _C.gesture.startX = e.stageX;
-                        _C.gesture.startY = e.stageY;
-                        _C.gesture.timeout = createjs.Ticker.getTicks()+20;
-                    } else  if ( e.stageX > _C.gesture.startX+300){
-                        _V.els.debugLabel.text = "horizontal swipe input";
-                        _C.gesture.startX = -1;
-                        _C.gesture.startY = -1;
-                        _C.gesture.timeout = -1;
-                    }  else  if ( e.stageY > _C.gesture.startY+200){
-                        _V.els.debugLabel.text = "vertical swipe input";
-                        _C.gesture.startX = -1;
-                        _C.gesture.startY = -1;
-                        _C.gesture.timeout = -1;
-                    }
+
         		},
         		clickCanvas: function (e) {
                     _V.els.debugLabel.text = "click input";
                     _V.els.characters.luchador.sprite.gotoAndPlay("jump");
                     _V.els.characters.luchador.startTick = createjs.Ticker.getTicks();
+
+                    _C.gesture.startX = e.stageX;
+                    _C.gesture.startY = e.stageY;
+                    _C.gesture.timeout = createjs.Ticker.getTicks()+20;
+
                     for (var obstacle in _V.els.obstacles) {
                         
                         var x = _V.els.obstacles[obstacle].sprite.x + _V.els.obstacles[obstacle].width;
                         var y = _V.els.obstacles[obstacle].sprite.y + _V.els.obstacles[obstacle].height;
 
                         if ((e.stageX >= _V.els.obstacles[obstacle].sprite.x && e.stageX <= x) && (e.stageY >= _V.els.obstacles[obstacle].sprite.y && e.stageY <= y)) {
+
                             _V.els.obstacles[obstacle].sprite.x = _V.els.stage.canvas.width + Math.random()*500;
+
                         }
                     }   
-        		}
+        		},
+                releaseClickCanvas: function (e) {
+                    if (_C.gesture.timeout >= createjs.Ticker.getTicks()) {
+                        if (e.stageX > _C.gesture.startX+300) {
+                            _V.els.debugLabel.text = "horizontal swipe input";
+                            _C.gesture.startX = -1;
+                            _C.gesture.startY = -1;
+                            _C.gesture.timeout = -1;
+                        } else if ( e.stageY > _C.gesture.startY+200 ) {
+                            _V.els.debugLabel.text = "vertical swipe input";
+                            _C.gesture.startX = -1;
+                            _C.gesture.startY = -1;
+                            _C.gesture.timeout = -1;
+                        }
+                    } else {
+                        _C.gesture.startX = -1;
+                        _C.gesture.startY = -1;
+                        _C.gesture.timeout = -1;
+                    }
+                }
         	},
         	tick: function () {
-
-                if ( _C.gesture.startX > 0 && _C.gesture.startY > 0 && _C.gesture.timeout <= createjs.Ticker.getTicks() ) {
-                    _C.gesture.startX = -1;
-                    _C.gesture.startY = -1;
-                    _C.gesture.timeout = -1;
-                    _V.els.debugLabel.text = "-- input";
-                }
 
         		_V.currentTerrain.x -= _V.currentTerrain.vX;
                 _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
@@ -242,7 +250,7 @@ window.GAME = (function() {
 
                 if (createjs.Ticker.getTicks() < (_V.els.characters.luchador.startTick + 5)) {
                     // _V.els.characters.luchador.sprite.gotoAndStop("jump");
-                } else if (_V.els.characters.luchador.sprite.currentAnimation != "run") {
+                } else if ((_V.els.characters.luchador.sprite.currentAnimation != "run")) {
                     _V.els.characters.luchador.sprite.gotoAndPlay("run");
                      _V.els.debugLabel.text = "-- input";     
                 }
@@ -266,6 +274,32 @@ window.GAME = (function() {
                     _V.els.decor.theCloud.sprite.gotoAndStop(Math.floor(Math.random()*3));
                 }
 
+                //Luchador hit testin'
+
+                var luchaRight = _V.els.characters.luchador.sprite.x + _V.els.characters.luchador.width;
+                var luchaBottom = _V.els.characters.luchador.sprite.y + _V.els.characters.luchador.height;
+
+                for (var obstacle in _V.els.obstacles) {
+                    
+                    var obstacleX = _V.els.obstacles[obstacle].sprite.x + _V.els.obstacles[obstacle].height;
+                    var obstacleY = _V.els.obstacles[obstacle].sprite.y + _V.els.obstacles[obstacle].width;
+
+
+                    /*if ((e.stageX >= _V.els.obstacles[obstacle].sprite.x && e.stageX <= x) && (e.stageY >= _V.els.obstacles[obstacle].sprite.y && e.stageY <= y)) {
+                        _V.els.stage.removeChild(_V.els.obstacles[obstacle].sprite);
+                    }*/
+
+                    if (luchaRight == _V.els.obstacles[obstacle].sprite.x) {
+                        _V.els.debugLabel.text = "OUCH!";   
+
+                        if (_V.els.characters.luchador.sprite.currentAnimation != "ouch") {
+                            _V.els.characters.luchador.sprite.gotoAndPlay("ouch");  
+                        }
+                    }
+
+                } 
+
+
         		_V.els.stage.update();
         	}
         }
@@ -276,108 +310,3 @@ window.GAME = (function() {
 $(document).ready(function() {
     GAME.controller.init();
 });
-
- // var canvas;
- // var stage;
-
- // var imgSeq = new Image();		// The image for the sparkle animation
- // var bmpAnim;						// The animated sparkle template to clone
- // var debugLabel;
-
- // function init() {
- // 	// create a new stage and point it at our canvas:
- // 	canvas = document.getElementById("gameCanvas");
- // 	stage = new createjs.Stage(canvas);
-
- // 	stage.onMouseMove = moveCanvas;
- // 	stage.onMouseDown = clickCanvas;
-
- // 	// define simple sprite sheet data specifying the image(s) to use, the size of the frames,
- // 	// and the registration point of the frame
- // 	// it will auto-calculate the number of frames from the image dimensions and loop them
- // 	var data = {
- // 		images: ["assets/sparkle_21x23.png"],
- // 		frames: {width:21,height:23,regX:10,regY:11}
- // 	}
-
- // 	// set up an animation instance, which we will clone
- // 	bmpAnim = new createjs.BitmapAnimation(new createjs.SpriteSheet(data));
-
- // 	// add a text object to output the current FPS:
- // 	debugLabel = new createjs.Text("-- fps","bold 14px Arial","#FFF");
- // 	stage.addChild(debugLabel);
- // 	debugLabel.x = 10;
- // 	debugLabel.y = 20;
-
- // 	// start the tick and point it at the window so we can do some work before updating the stage:
- // 	createjs.Ticker.setFPS(20);
- // 	createjs.Ticker.addListener(window);
- // }
-
-
- // function tick() {
- // 	// loop through all of the active sparkles on stage:
- // 	var l = stage.getNumChildren();
- // 	for (var i=l-1; i>0; i--) {
- // 		var sparkle = stage.getChildAt(i);
-
- // 		// apply gravity and friction
- // 		sparkle.vY += 2;
- // 		sparkle.vX *= 0.98;
-
- // 		// update position, scale, and alpha:
- // 		sparkle.x += sparkle.vX;
- // 		sparkle.y += sparkle.vY;
- // 		sparkle.scaleX = sparkle.scaleY = sparkle.scaleX+sparkle.vS;
- // 		sparkle.alpha += sparkle.vA;
-
- // 		//remove sparkles that are off screen or not invisble
- // 		if (sparkle.alpha <= 0 || sparkle.y > canvas.height) {
- // 			stage.removeChildAt(i);
- // 		}
- // 	}
-
- // 	debugLabel.text = Math.round(createjs.Ticker.getMeasuredFPS())+" fps";
-
- // 	// draw the updates to stage
- // 	stage.update();
- // }
-
- // //sparkle explosion
- // function clickCanvas(evt) {
- // 	addSparkles(Math.random()*200+100|0, stage.mouseX, stage.mouseY,2);
- // }
-
- // //sparkle trail
- // function moveCanvas(evt) {
- // 	addSparkles(Math.random()*2+1|0, stage.mouseX, stage.mouseY,1);
- // }
-
- // function addSparkles(count, x, y, speed) {
- // 	//create the specified number of sparkles
- // 	for (var i=0; i<count; i++) {
- // 		// clone the original sparkle, so we don't need to set shared properties:
- // 		var sparkle = bmpAnim.clone();
-
- // 		// set display properties:
- // 		sparkle.x = x;
- // 		sparkle.y = y;
- // 		//sparkle.rotation = Math.random()*360;
- // 		sparkle.alpha = Math.random()*0.5+0.5;
- // 		sparkle.scaleX = sparkle.scaleY = Math.random()+0.3;
-
- // 		// set up velocities:
- // 		var a = Math.PI*2*Math.random();
- // 		var v = (Math.random()-0.5)*30*speed;
- // 		sparkle.vX = Math.cos(a)*v;
- // 		sparkle.vY = Math.sin(a)*v;
- // 		sparkle.vS = (Math.random()-0.5)*0.2; // scale
- // 		sparkle.vA = -Math.random()*0.05-0.01; // alpha
-
- // 		// start the animation on a random frame:
- // 		sparkle.gotoAndPlay(Math.random()*sparkle.spriteSheet.getNumFrames()|0);
-
- // 		// add to the display list:
- // 		stage.addChild(sparkle);
- // 	}
- // }
