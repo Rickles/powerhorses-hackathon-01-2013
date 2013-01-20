@@ -170,14 +170,8 @@ window.GAME = (function() {
         			// console.log("move");
         		},
         		clickCanvas: function (e) {
-        			//console.log(e);
-                    console.log("hey");
                     _V.els.characters.luchador.sprite.gotoAndPlay("jump");
-                    var start = createjs.Ticker.getTicks();
-                        console.log (start);
-                    if (createjs.Ticker.getTicks() > (start + 20)) {
-                        console.log("woah");
-                    }        
+                    _V.els.characters.luchador.startTick = createjs.Ticker.getTicks();       
         		}
         	},
         	tick: function () {
@@ -186,14 +180,11 @@ window.GAME = (function() {
                 _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
                 _V.els.decor.theCloud.sprite.x -= _V.els.decor.theCloud.sprite.vX;
 
-                if (_V.els.characters.luchador.sprite.currentAnimation == "run" && createjs.Ticker.getTicks() < (_V.els.characters.luchador.startTick + 20)) {
-                    _V.els.characters.luchador.sprite.gotoAndPlay("jump");
-
-                        _V.els.characters.luchador.sprite.gotoAndPlay("run");
-                    }
-                    else {
-                        
-                    }
+                if (createjs.Ticker.getTicks() < (_V.els.characters.luchador.startTick + 5)) {
+                    _V.els.characters.luchador.sprite.gotoAndStop("jump");
+                } else if (_V.els.characters.luchador.sprite.currentAnimation != "run") {
+                    _V.els.characters.luchador.sprite.gotoAndPlay("run");     
+                }
 
                 if (_V.currentTerrain.x <= (_V.els.stage.canvas.width-30)*-1) {
                     _V.oldTerrain = _V.currentTerrain;
