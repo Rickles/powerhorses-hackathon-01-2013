@@ -176,21 +176,28 @@ window.GAME = (function() {
         			// console.log("move");
         		},
         		clickCanvas: function (e) {
-        			//console.log(e);
                     console.log("hey");
-                    _V.els.characters.luchador.sprite.gotoAndPlay("jump");
-                    var start = createjs.Ticker.getTicks();
-                        console.log (start);
-                    if (createjs.Ticker.getTicks() > (start + 20)) {
-                        console.log("woah");
-                    }        
+                    //_V.els.characters.luchador.isJumping = true;
+                    _V.els.characters.luchador.startTick = createjs.Ticker.getTicks();
+                    console.log(_V.els.characters.luchador.sprite.currentAnimation);
+
         		}
         	},
         	tick: function () {
 
+<<<<<<< HEAD
         		_V.currentTerrain.x -= _V.currentTerrain.vX;
                 _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
                 _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
+=======
+                if (_V.els.characters.luchador.sprite.currentAnimation == "run" && createjs.Ticker.getTicks() < (_V.els.characters.luchador.startTick + 20)) {
+                    _V.els.characters.luchador.sprite.gotoAndPlay("jump");
+                }
+
+                else {
+                    _V.els.characters.luchador.sprite.currentAnimation == "run";
+                }
+>>>>>>> 36a019af44133f02d0aff7d4279a63ebb6daecb5
 
                 if (_V.currentTerrain.x <= (_V.els.stage.canvas.width-30)*-1) {
                     _V.oldTerrain = _V.currentTerrain;
@@ -206,7 +213,14 @@ window.GAME = (function() {
                     }
                 }
 
+                else {
+                    _V.els.decor.theTerrain.sprite.x -= _V.els.decor.theTerrain.sprite.vX;
+                    _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
+                    _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
+                }
+
         		_V.els.stage.update();
+
         	}
         }
     }
