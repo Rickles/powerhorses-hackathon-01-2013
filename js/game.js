@@ -12,28 +12,43 @@ window.GAME = (function() {
 
     	/* MODEL */
         model: {
-            speed: 1
+            speed: 10
         },
 
         /* VIEW */
         view: {
         	init: function () {
-        		for (var character in _V.els.characters) {
-        			_V.els.characters[character].sprite = new createjs.BitmapAnimation(new createjs.SpriteSheet(_V.els.characters[character].data));
-        		};
+                //Instantiating the luchador sprite with the luchador data (defined below in els
+    			_V.els.characters.luchador.sprite = new createjs.BitmapAnimation(new createjs.SpriteSheet(_V.els.characters.luchador.data));
+
+                //Looping through obstacles to create all of the obstacles based on the data below
+                for (var obstaclesElement in _V.els.obstacles) {
+                    _V.els.obstacles[obstaclesElement].sprite = new createjs.BitmapAnimation(new createjs.SpriteSheet(_V.els.obstacles[obstaclesElement].data));
+                };
+
+                //Looping through all of the background elements using the decor attribute/object defined in els
         		for (var decorElement in _V.els.decor) {
         			_V.els.decor[decorElement].sprite = new createjs.BitmapAnimation(new createjs.SpriteSheet(_V.els.decor[decorElement].data));
         		};
+                //Background terrain
         		_V.buildEnvironment();
                 _V.els.stage.addChild(_V.els.characters.luchador.sprite);
                 _V.els.characters.luchador.sprite.x = 200;
                 _V.els.characters.luchador.sprite.y = 110;
                 _V.els.characters.luchador.sprite.gotoAndPlay("run");
 
-                _V.els.stage.addChild(_V.els.characters.barrel.sprite);
-                _V.els.characters.barrel.sprite.x = 500;
-                _V.els.characters.barrel.sprite.y = 300;
-                _V.els.characters.barrel.sprite.gotoAndStop(0);
+                //Barrel
+                _V.els.stage.addChild(_V.els.obstacles.barrel.sprite);
+                _V.els.obstacles.barrel.sprite.x = 500;
+                _V.els.obstacles.barrel.sprite.y = 295;
+                _V.els.obstacles.barrel.sprite.gotoAndStop(0);
+
+                //Chili
+                _V.els.stage.addChild(_V.els.obstacles.chili.sprite);
+                _V.els.obstacles.chili.sprite.x = 800;
+                _V.els.obstacles.chili.sprite.y = 180;
+                _V.els.obstacles.chili.sprite.gotoAndStop(0);
+
         	},  
         	els: {
         		window:                     $(window),
@@ -51,9 +66,11 @@ window.GAME = (function() {
                                                                     "images": ["img/spritesheets/luchador-spritesheet.png"],
                                                                     "frames": [[200, 2, 112, 209, 0, -19, -37], [632, 2, 111, 200, 0, -21, -41], [866, 2, 119, 196, 0, -15, -45], [747, 2, 115, 196, 0, -29, -45], [481, 2, 147, 200, 0, -11, -42], [316, 2, 161, 200, 0, -2, -42], [99, 2, 97, 210, 0, -22, -34], [2, 2, 93, 210, 0, -29, -34], [2, 216, 172, 180, 0, 0, -14]]
 															 	}
-                								},
-                								barrel: 	{
-                												data: {
+                								} 
+                							},
+                obstacles:                  {
+                                                barrel:     {
+                                                                data: {
                                                                     "animations": {
                                                                             "all": {
                                                                                 "frames": [0]
@@ -61,9 +78,20 @@ window.GAME = (function() {
                                                                     },
                                                                     "images": ["img/spritesheets/barrel.png"],
                                                                     "frames": [[2, 2, 76, 97, 0, -2, -2]]
-															 	}
-                								} 
-                							},
+                                                                }
+                                                }, 
+                                                chili:     {
+                                                                data: {
+                                                                    "animations": {
+                                                                                "all": {
+                                                                                    "frames": [0]
+                                                                                }
+                                                                    },
+                                                                    "images": ["img/spritesheets/chili.png"],
+                                                                    "frames": [[2, 2, 18, 48, 0, -1, -1]]
+                                                                }
+                                                } 
+                                            },
                 decor: 						{
                 								theSun: 	{
                 												data: {
@@ -77,7 +105,7 @@ window.GAME = (function() {
 															 		frames: {width:1920,height:331,regX:0,regY:0}
                 												}
                 								},
-                                                theClouds: {
+                                                theCloud: {
                                                                 data: {
                                                                     images: ["img/spritesheets/cloud.png"],
                                                                     frames: {width:120,height:55,regX:0,regY:0}
@@ -87,7 +115,7 @@ window.GAME = (function() {
         	},
         	buildEnvironment: function () {
         		var theTerrain = _V.els.decor.theTerrain.sprite,
-                    theClouds = _V.els.decor.theClouds.sprite,
+                    theCloud = _V.els.decor.theCloud.sprite,
         			theSun = _V.els.decor.theSun.sprite;
 
         		theSun.x = 800;
@@ -96,16 +124,17 @@ window.GAME = (function() {
         		theSun.gotoAndPlay(1);
         		_V.els.stage.addChild(theSun);
 
+                theCloud.x = 0;
+                theCloud.y = 70;
+                theCloud.vX = (_M.speed/3) * Math.random();
+                theCloud.gotoAndStop(Math.floor(Math.random()*3));
+                _V.els.stage.addChild(theCloud);
+
         		theTerrain.x = 0;
         		theTerrain.y = 70;
+                theTerrain.vX = _M.speed;
         		theTerrain.gotoAndPlay(1);
         		_V.els.stage.addChild(theTerrain);
-
-                theClouds.x = 0;
-                theClouds.y = 70;
-                theClouds.vX = _M.speed * Math.random();
-                theClouds.gotoAndStop(Math.floor(Math.random()*3));
-                _V.els.stage.addChild(theClouds);
         	}
         },
 
@@ -139,10 +168,19 @@ window.GAME = (function() {
         	},
         	tick: function () {
 
+<<<<<<< HEAD
                 if (_V.els.characters.luchador.isJumping == true && createjs.Ticker.getTicks() < (_V.els.characters.luchador.startTick + 20)) {
                     _V.els.characters.luchador.sprite.gotoAndPlay("jump");
                 }
                 else {
+=======
+        		_V.els.decor.theTerrain.sprite.x -= _V.els.decor.theTerrain.sprite.vX;
+                _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
+                _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
+
+                if (_V.els.decor.theTerrain.sprite.x <= (_V.els.stage.canvas.width)*-1) {
+                    console.log("magic hour");
+>>>>>>> 0926ad6ad416c1b99e781e866e1532ce45168dc0
                 }
 
         		_V.els.stage.update();
