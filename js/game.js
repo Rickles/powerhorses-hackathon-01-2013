@@ -25,12 +25,9 @@ window.GAME = (function() {
                 for (var obstaclesElement in _V.els.obstacles) {
                     _V.els.obstacles[obstaclesElement].sprite = new createjs.BitmapAnimation(new createjs.SpriteSheet(_V.els.obstacles[obstaclesElement].data));
                     _V.els.obstacles[obstaclesElement].checkPos = function () {
-                        //console.log(this.sprite.x);
-                        //console.log(this.sprite);
-
-                        // if (this.sprite.x-this.sprite.spritesSheet._frameWidth < 0) {
-                        //     this.sprite.x = _V.stage.canavas.width + Math.random()*200;
-                        // }
+                        if (this.sprite.x+100 < 0) {
+                            this.sprite.x = _V.els.stage.canvas.width + Math.random()*200;
+                        }
                     };
                 };
 
