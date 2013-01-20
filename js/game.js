@@ -94,7 +94,7 @@ window.GAME = (function() {
 															 		frames: {width:1920,height:331,regX:0,regY:0}
                 												}
                 								},
-                                                theClouds: {
+                                                theCloud: {
                                                                 data: {
                                                                     images: ["img/spritesheets/cloud.png"],
                                                                     frames: {width:120,height:55,regX:0,regY:0}
@@ -104,12 +104,12 @@ window.GAME = (function() {
         	},
         	buildEnvironment: function () {
         		var theTerrain = _V.els.decor.theTerrain.sprite,
-                    theClouds = _V.els.decor.theClouds.sprite,
+                    theCloud = _V.els.decor.theCloud.sprite,
         			theSun = _V.els.decor.theSun.sprite;
 
         		theSun.x = 800;
         		theSun.y = 10
-                theSun.vX = _M.speed / 8;
+                theSun.vX = _M.speed / 2;
         		theSun.gotoAndPlay(1);
         		_V.els.stage.addChild(theSun);
 
@@ -119,11 +119,11 @@ window.GAME = (function() {
         		theTerrain.gotoAndPlay(1);
         		_V.els.stage.addChild(theTerrain);
 
-                theClouds.x = 0;
-                theClouds.y = 70;
-                theClouds.vX = (_M.speed * Math.random())+1;
-                theClouds.gotoAndStop(Math.floor(Math.random()*3));
-                _V.els.stage.addChild(theClouds);
+                theCloud.x = 0;
+                theCloud.y = 70;
+                theCloud.vX = (_M.speed * Math.random())+1;
+                theCloud.gotoAndStop(Math.floor(Math.random()*3));
+                _V.els.stage.addChild(theCloud);
         	}
         },
 
@@ -160,7 +160,9 @@ window.GAME = (function() {
         	},
         	tick: function () {
 
-        		// _V.els.decor.theTerrain.sprite.x = 
+        		_V.els.decor.theTerrain.sprite.x -= _V.els.decor.theTerrain.sprite.vX;
+                _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
+                _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
 
         		_V.els.stage.update();
         	}
