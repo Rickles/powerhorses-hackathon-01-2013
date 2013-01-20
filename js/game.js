@@ -182,7 +182,12 @@ window.GAME = (function() {
         		},
         		clickCanvas: function (e) {
                     _V.els.characters.luchador.sprite.gotoAndPlay("jump");
-                    _V.els.characters.luchador.startTick = createjs.Ticker.getTicks();       
+                    _V.els.characters.luchador.startTick = createjs.Ticker.getTicks();
+                    //console.log(e.stageX, e.stageY);
+                    for (var obstacle in _V.els.obstacles) {
+                        //console.log(_V.els.obstacles[obstacle].sprite.x, _V.els.obstacles[obstacle].sprite.y);
+                        console.log(_V.els.obstacles[obstacle].sprite, _V.els.obstacles[obstacle].sprite )
+                    }       
         		}
         	},
         	tick: function () {
