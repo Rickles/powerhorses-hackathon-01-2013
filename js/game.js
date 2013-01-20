@@ -160,27 +160,30 @@ window.GAME = (function() {
         		},
         		clickCanvas: function (e) {
                     console.log("hey");
-                    _V.els.characters.luchador.isJumping = true;
+                    //_V.els.characters.luchador.isJumping = true;
                     _V.els.characters.luchador.startTick = createjs.Ticker.getTicks();
-                    console.log(_V.els.characters.luchador.startTick);
+                    console.log(_V.els.characters.luchador.sprite.currentAnimation);
 
         		}
         	},
         	tick: function () {
 
-<<<<<<< HEAD
-                if (_V.els.characters.luchador.isJumping == true && createjs.Ticker.getTicks() < (_V.els.characters.luchador.startTick + 20)) {
+                if (_V.els.characters.luchador.sprite.currentAnimation == "run" && createjs.Ticker.getTicks() < (_V.els.characters.luchador.startTick + 20)) {
                     _V.els.characters.luchador.sprite.gotoAndPlay("jump");
                 }
+
                 else {
-=======
-        		_V.els.decor.theTerrain.sprite.x -= _V.els.decor.theTerrain.sprite.vX;
-                _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
-                _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
+                    _V.els.characters.luchador.sprite.currentAnimation == "run";
+                }
 
                 if (_V.els.decor.theTerrain.sprite.x <= (_V.els.stage.canvas.width)*-1) {
                     console.log("magic hour");
->>>>>>> 0926ad6ad416c1b99e781e866e1532ce45168dc0
+                }
+
+                else {
+                    _V.els.decor.theTerrain.sprite.x -= _V.els.decor.theTerrain.sprite.vX;
+                    _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
+                    _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
                 }
 
         		_V.els.stage.update();
