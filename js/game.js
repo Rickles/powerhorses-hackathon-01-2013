@@ -220,9 +220,11 @@ window.GAME = (function() {
                         var y = _V.els.obstacles[obstacle].sprite.y + _V.els.obstacles[obstacle].height;
 
                         if ((e.stageX >= _V.els.obstacles[obstacle].sprite.x && e.stageX <= x) && (e.stageY >= _V.els.obstacles[obstacle].sprite.y && e.stageY <= y)) {
-                            _V.els.stage.removeChild(_V.els.obstacles[obstacle].sprite);
+
+                            _V.els.obstacles[obstacle].sprite.x = _V.els.stage.canvas.width + Math.random()*500;
+
                         }
-                    }       
+                    }   
         		}
         	},
         	tick: function () {
