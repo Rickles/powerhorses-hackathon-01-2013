@@ -121,13 +121,13 @@ window.GAME = (function() {
                 								theTerrain: {
                 												data: {
                 													images: ["img/spritesheets/terrain.png"],
-															 		frames: {width:1920,height:331,regX:0,regY:0}
+															 		frames: {width:1920,height:400,regX:0,regY:0}
                 												}
                 								},
                                                 theTerrainSecondary: {
                                                                 data: {
                                                                     images: ["img/spritesheets/terrain.png"],
-                                                                    frames: {width:1920,height:331,regX:0,regY:0}
+                                                                    frames: {width:1920,height:400,regX:0,regY:0}
                                                                 }
                                                 },
                                                 theCloud: {
@@ -157,13 +157,13 @@ window.GAME = (function() {
                 _V.els.stage.addChild(theCloud);
 
                 theTerrain.x = 0;
-                theTerrain.y = 70;
+                theTerrain.y = 0;
                 theTerrain.vX = _M.speed;
                 theTerrain.gotoAndPlay(1);
                 _V.els.stage.addChild(theTerrain);
 
                 theTerrainSecondary.x = _V.els.stage.canvas.width;
-                theTerrainSecondary.y = 70;
+                theTerrainSecondary.y = 0;
                 theTerrainSecondary.vX = _M.speed;
                 theTerrainSecondary.gotoAndPlay(1);
                 _V.els.stage.addChild(theTerrainSecondary);
