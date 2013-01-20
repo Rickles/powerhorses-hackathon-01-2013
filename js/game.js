@@ -166,9 +166,45 @@ window.GAME = (function() {
         	},
         	tick: function () {
 
+<<<<<<< HEAD
         		_V.els.decor.theTerrain.sprite.x -= _V.els.decor.theTerrain.sprite.vX;
                 _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
                 _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
+=======
+        		_V.currentTerrain.x -= _V.currentTerrain.vX;
+                _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
+                _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
+                if (_V.els.characters.luchador.sprite.currentAnimation == "run" && createjs.Ticker.getTicks() < (_V.els.characters.luchador.startTick + 20)) {
+                    _V.els.characters.luchador.sprite.gotoAndPlay("jump");
+                }
+                    else {
+                        if (_V.els.characters.luchador.sprite.currentAnimation == "run") {
+                            console.log('nice');
+                        }
+                        else {
+                        _V.els.characters.luchador.sprite.gotoAndPlay("run");
+                        }
+                }
+
+                if (_V.currentTerrain.x <= (_V.els.stage.canvas.width-30)*-1) {
+                    _V.oldTerrain = _V.currentTerrain;
+                    _V.currentTerrain = _V.newTerrain;
+                }
+                if (_V.oldTerrain != null) { 
+                    _V.oldTerrain.x -= _V.oldTerrain.vX;
+                    if (_V.oldTerrain.x <= -_V.oldTerrain.spriteSheet._frameWidth) {
+                        _V.oldTerrain.x = _V.els.stage.canvas.width;
+                        _V.newTerrain = _V.oldTerrain
+                        _V.oldTerrain = null;
+                    }
+                }
+
+                else {
+                    _V.els.decor.theTerrain.sprite.x -= _V.els.decor.theTerrain.sprite.vX;
+                    _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
+                    _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
+                }
+>>>>>>> e73d9cb997969ff2652232e566782c1db59de368
 
         		_V.els.stage.update();
         	}
