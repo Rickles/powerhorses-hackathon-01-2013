@@ -281,7 +281,7 @@ window.GAME = (function() {
 
                 for (var obstacle in _V.els.obstacles) {
                     
-                    var obstacleX =  + _V.els.obstacles[obstacle].height;
+                    var obstacleX = _V.els.obstacles[obstacle].sprite.x + _V.els.obstacles[obstacle].height;
                     var obstacleY = _V.els.obstacles[obstacle].sprite.y + _V.els.obstacles[obstacle].width;
 
 
