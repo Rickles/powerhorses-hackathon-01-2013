@@ -185,11 +185,9 @@ window.GAME = (function() {
         	},
         	tick: function () {
 
-<<<<<<< HEAD
         		_V.currentTerrain.x -= _V.currentTerrain.vX;
                 _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
                 _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
-=======
                 if (_V.els.characters.luchador.sprite.currentAnimation == "run" && createjs.Ticker.getTicks() < (_V.els.characters.luchador.startTick + 20)) {
                     _V.els.characters.luchador.sprite.gotoAndPlay("jump");
                 }
@@ -197,7 +195,6 @@ window.GAME = (function() {
                 else {
                     _V.els.characters.luchador.sprite.currentAnimation == "run";
                 }
->>>>>>> 36a019af44133f02d0aff7d4279a63ebb6daecb5
 
                 if (_V.currentTerrain.x <= (_V.els.stage.canvas.width-30)*-1) {
                     _V.oldTerrain = _V.currentTerrain;
@@ -207,7 +204,6 @@ window.GAME = (function() {
                     _V.oldTerrain.x -= _V.oldTerrain.vX;
                     if (_V.oldTerrain.x <= -_V.oldTerrain.spriteSheet._frameWidth) {
                         _V.oldTerrain.x = _V.els.stage.canvas.width;
-                        _V.oldTerrain.y = 70;
                         _V.newTerrain = _V.oldTerrain
                         _V.oldTerrain = null;
                     }
