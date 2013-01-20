@@ -24,17 +24,20 @@ window.GAME = (function() {
         		for (var decorElement in _V.els.decor) {
         			_V.els.decor[decorElement].sprite = new createjs.BitmapAnimation(new createjs.SpriteSheet(_V.els.decor[decorElement].data));
         		};
+                //Background terrain
         		_V.buildEnvironment();
                 _V.els.stage.addChild(_V.els.characters.luchador.sprite);
                 _V.els.characters.luchador.sprite.x = 200;
                 _V.els.characters.luchador.sprite.y = 110;
                 _V.els.characters.luchador.sprite.gotoAndPlay("run");
 
+                //Barrel
                 _V.els.stage.addChild(_V.els.characters.barrel.sprite);
                 _V.els.characters.barrel.sprite.x = 500;
                 _V.els.characters.barrel.sprite.y = 295;
                 _V.els.characters.barrel.sprite.gotoAndStop(0);
 
+                //Chili
                 _V.els.stage.addChild(_V.els.characters.chili.sprite);
                 _V.els.characters.chili.sprite.x = 800;
                 _V.els.characters.chili.sprite.y = 180;
