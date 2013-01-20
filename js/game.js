@@ -24,6 +24,14 @@ window.GAME = (function() {
                 //Looping through obstacles to create all of the obstacles based on the data below
                 for (var obstaclesElement in _V.els.obstacles) {
                     _V.els.obstacles[obstaclesElement].sprite = new createjs.BitmapAnimation(new createjs.SpriteSheet(_V.els.obstacles[obstaclesElement].data));
+                    _V.els.obstacles[obstaclesElement].checkPos = function () {
+                        //console.log(this.sprite.x);
+                        //console.log(this.sprite);
+
+                        // if (this.sprite.x-this.sprite.spritesSheet._frameWidth < 0) {
+                        //     this.sprite.x = _V.stage.canavas.width + Math.random()*200;
+                        // }
+                    };
                 };
 
                 //Looping through all of the background elements using the decor attribute/object defined in else
@@ -32,6 +40,7 @@ window.GAME = (function() {
         		};
                 //Background terrain
         		_V.buildEnvironment();
+
                 _V.els.stage.addChild(_V.els.characters.luchador.sprite);
                 _V.els.characters.luchador.sprite.x = 200;
                 _V.els.characters.luchador.sprite.y = 110;
@@ -40,7 +49,7 @@ window.GAME = (function() {
                 //Barrel
                 _V.els.stage.addChild(_V.els.obstacles.barrel.sprite);
                 _V.els.obstacles.barrel.sprite.x = 500;
-                _V.els.obstacles.barrel.sprite.y = 295;
+                _V.els.obstacles.barrel.sprite.y = 275;
                 _V.els.obstacles.barrel.sprite.gotoAndStop(0);
 
                 //Chili
@@ -76,7 +85,8 @@ window.GAME = (function() {
                                                                     },
                                                                     "images": ["img/spritesheets/barrel.png"],
                                                                     "frames": [[2, 2, 76, 97, 0, -2, -2]]
-                                                                }
+                                                                },
+                                                                speed: 0
                                                 }, 
                                                 chili:     {
                                                                 data: {
@@ -87,7 +97,8 @@ window.GAME = (function() {
                                                                     },
                                                                     "images": ["img/spritesheets/chili.png"],
                                                                     "frames": [[2, 2, 18, 48, 0, -1, -1]]
-                                                                }
+                                                                },
+                                                                speed: 3
                                                 }
                                             },
                 decor: 						{
@@ -180,8 +191,13 @@ window.GAME = (function() {
                 _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
                 _V.els.decor.theCloud.sprite.x -= _V.els.decor.theCloud.sprite.vX;
 
+                for (var obstacle in _V.els.obstacles) {
+                    _V.els.obstacles[obstacle].sprite.x -= _M.speed+_V.els.obstacles[obstacle].speed;
+                    _V.els.obstacles[obstacle].checkPos();
+                }
+
                 if (createjs.Ticker.getTicks() < (_V.els.characters.luchador.startTick + 5)) {
-                    _V.els.characters.luchador.sprite.gotoAndStop("jump");
+                    // _V.els.characters.luchador.sprite.gotoAndStop("jump");
                 } else if (_V.els.characters.luchador.sprite.currentAnimation != "run") {
                     _V.els.characters.luchador.sprite.gotoAndPlay("run");     
                 }
