@@ -130,23 +130,17 @@ window.GAME = (function() {
         			// console.log("move");
         		},
         		clickCanvas: function (e) {
-        			//console.log(e);
                     console.log("hey");
-                    
                     _V.els.characters.luchador.isJumping = true;
-                    //var start = createjs.Ticker.getTicks();
+                    var start = createjs.Ticker.getTicks();
         		}
         	},
         	tick: function () {
 
-        		// _V.els.decor.theTerrain.sprite.x = 
-                /*if (createjs.Ticker.getTicks() > 20) {
-                        console.log("woah");
-                    }  */
-
-                while (_V.els.characters.luchador.isJumping == true) {
+                if (_V.els.characters.luchador.isJumping == true) {
                     //console.log('what?');
                     _V.els.characters.luchador.sprite.gotoAndPlay("jump");
+                    console.log(start);
                 }
         		_V.els.stage.update();
         	}
