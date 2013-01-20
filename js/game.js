@@ -171,9 +171,13 @@ window.GAME = (function() {
                 if (_V.els.characters.luchador.sprite.currentAnimation == "run" && createjs.Ticker.getTicks() < (_V.els.characters.luchador.startTick + 20)) {
                     _V.els.characters.luchador.sprite.gotoAndPlay("jump");
                 }
-
-                else {
-                    _V.els.characters.luchador.sprite.currentAnimation == "run";
+                    else {
+                        if (_V.els.characters.luchador.sprite.currentAnimation == "run") {
+                            console.log('nice');
+                        }
+                        else {
+                        _V.els.characters.luchador.sprite.gotoAndPlay("run");
+                        }
                 }
 
                 if (_V.els.decor.theTerrain.sprite.x <= (_V.els.stage.canvas.width)*-1) {
