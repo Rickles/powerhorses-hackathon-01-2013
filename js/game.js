@@ -12,7 +12,7 @@ window.GAME = (function() {
 
     	/* MODEL */
         model: {
-            speed: 1
+            speed: 10
         },
 
         /* VIEW */
@@ -109,21 +109,21 @@ window.GAME = (function() {
 
         		theSun.x = 800;
         		theSun.y = 10
-                theSun.vX = _M.speed / 2;
+                theSun.vX = _M.speed / 8;
         		theSun.gotoAndPlay(1);
         		_V.els.stage.addChild(theSun);
+
+                theCloud.x = 0;
+                theCloud.y = 70;
+                theCloud.vX = (_M.speed/3) * Math.random();
+                theCloud.gotoAndStop(Math.floor(Math.random()*3));
+                _V.els.stage.addChild(theCloud);
 
         		theTerrain.x = 0;
         		theTerrain.y = 70;
                 theTerrain.vX = _M.speed;
         		theTerrain.gotoAndPlay(1);
         		_V.els.stage.addChild(theTerrain);
-
-                theCloud.x = 0;
-                theCloud.y = 70;
-                theCloud.vX = (_M.speed * Math.random())+1;
-                theCloud.gotoAndStop(Math.floor(Math.random()*3));
-                _V.els.stage.addChild(theCloud);
         	}
         },
 
@@ -163,6 +163,10 @@ window.GAME = (function() {
         		_V.els.decor.theTerrain.sprite.x -= _V.els.decor.theTerrain.sprite.vX;
                 _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
                 _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
+
+                if (_V.els.decor.theTerrain.sprite.x <= (_V.els.stage.canvas.width)*-1) {
+                    console.log("magic hour");
+                }
 
         		_V.els.stage.update();
         	}
