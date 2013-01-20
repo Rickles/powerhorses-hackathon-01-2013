@@ -188,10 +188,10 @@ window.GAME = (function() {
         		_V.currentTerrain.x -= _V.currentTerrain.vX;
                 _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
                 _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
+
                 if (_V.els.characters.luchador.sprite.currentAnimation == "run" && createjs.Ticker.getTicks() < (_V.els.characters.luchador.startTick + 20)) {
                     _V.els.characters.luchador.sprite.gotoAndPlay("jump");
-                }
-                    else {
+                } else {
                         if (_V.els.characters.luchador.sprite.currentAnimation == "run") {
                             console.log('nice');
                         }
@@ -211,12 +211,6 @@ window.GAME = (function() {
                         _V.newTerrain = _V.oldTerrain
                         _V.oldTerrain = null;
                     }
-                }
-
-                else {
-                    _V.els.decor.theTerrain.sprite.x -= _V.els.decor.theTerrain.sprite.vX;
-                    _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
-                    _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
                 }
 
         		_V.els.stage.update();
