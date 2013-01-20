@@ -85,8 +85,8 @@ window.GAME = (function() {
                                                                     "frames": [[2, 2, 76, 97, 0, -2, -2]],
                                                                 },
                                                                 speed: 0,
-                                                                width: 30,
-                                                                height: 40,
+                                                                width: 50,
+                                                                height: 100,
                                                 }, 
                                                 chili:     {
                                                                 data: {
@@ -98,7 +98,9 @@ window.GAME = (function() {
                                                                     "images": ["img/spritesheets/chili.png"],
                                                                     "frames": [[2, 2, 18, 48, 0, -1, -1]]
                                                                 },
-                                                                speed: 3
+                                                                speed: 3,
+                                                                width: 30,
+                                                                height: 40,
                                                 }
                                             },
                 decor: 						{
@@ -183,11 +185,14 @@ window.GAME = (function() {
         		clickCanvas: function (e) {
                     _V.els.characters.luchador.sprite.gotoAndPlay("jump");
                     _V.els.characters.luchador.startTick = createjs.Ticker.getTicks();
-                    //console.log(e.stageX, e.stageY);
                     for (var obstacle in _V.els.obstacles) {
-                        //console.log(_V.els.obstacles[obstacle].sprite.x, _V.els.obstacles[obstacle].sprite.y);
-                        console.log(_V.els.obstacles[obstacle].sprite, _V.els.obstacles[obstacle].sprite );
-                        console.log(_V.els.obstacles[obstacle].width, "hey");
+                        
+                        var x = _V.els.obstacles[obstacle].sprite.x + _V.els.obstacles[obstacle].width;
+                        var y = _V.els.obstacles[obstacle].sprite.y + _V.els.obstacles[obstacle].height;
+
+                        if ((e.stageX >= _V.els.obstacles[obstacle].sprite.x && e.stageX <= x) && (e.stageY >= _V.els.obstacles[obstacle].sprite.y && e.stageY <= y)) {
+                            console.log("hit");
+                        }
                     }       
         		}
         	},
