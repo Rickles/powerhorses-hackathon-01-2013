@@ -132,17 +132,21 @@ window.GAME = (function() {
         		clickCanvas: function (e) {
                     console.log("hey");
                     _V.els.characters.luchador.isJumping = true;
-                    var start = createjs.Ticker.getTicks();
+                    _V.els.characters.luchador.startTick = createjs.Ticker.getTicks();
+                    console.log(_V.els.characters.luchador.startTick);
+
         		}
         	},
         	tick: function () {
 
-                if (_V.els.characters.luchador.isJumping == true) {
-                    //console.log('what?');
+                if (_V.els.characters.luchador.isJumping == true && createjs.Ticker.getTicks() < (_V.els.characters.luchador.startTick + 20)) {
                     _V.els.characters.luchador.sprite.gotoAndPlay("jump");
-                    console.log(start);
                 }
+                else {
+                }
+
         		_V.els.stage.update();
+
         	}
         }
     }
