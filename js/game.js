@@ -35,7 +35,7 @@ window.GAME = (function() {
                 _V.els.stage.addChild(_V.els.characters.luchador.sprite);
                 _V.els.characters.luchador.sprite.x = 200;
                 _V.els.characters.luchador.sprite.y = 110;
-                _V.els.characters.luchador.sprite.gotoAndPlay("ouch");
+                _V.els.characters.luchador.sprite.gotoAndPlay("run");
 
                 //Barrel
                 _V.els.stage.addChild(_V.els.obstacles.barrel.sprite);
