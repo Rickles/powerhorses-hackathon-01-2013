@@ -26,7 +26,7 @@ window.GAME = (function() {
                     _V.els.obstacles[obstaclesElement].sprite = new createjs.BitmapAnimation(new createjs.SpriteSheet(_V.els.obstacles[obstaclesElement].data));
                 };
 
-                //Looping through all of the background elements using the decor attribute/object defined in els
+                //Looping through all of the background elements using the decor attribute/object defined in else
         		for (var decorElement in _V.els.decor) {
         			_V.els.decor[decorElement].sprite = new createjs.BitmapAnimation(new createjs.SpriteSheet(_V.els.decor[decorElement].data));
         		};
