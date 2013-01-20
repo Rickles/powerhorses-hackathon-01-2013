@@ -129,9 +129,9 @@ window.GAME = (function() {
                 theSun.gotoAndPlay(1);
                 _V.els.stage.addChild(theSun);
 
-                theCloud.x = 0;
-                theCloud.y = 70;
-                theCloud.vX = (_M.speed/5) * Math.random();
+                theCloud.x = -90;
+                theCloud.y = Math.floor(Math.random()*130);
+                theCloud.vX = -((_M.speed/5) * Math.random());
                 theCloud.gotoAndStop(Math.floor(Math.random()*3));
                 _V.els.stage.addChild(theCloud);
 
@@ -184,7 +184,7 @@ window.GAME = (function() {
 
         		_V.currentTerrain.x -= _V.currentTerrain.vX;
                 _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
-                _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
+                _V.els.decor.theCloud.sprite.x -= _V.els.decor.theCloud.sprite.vX;
 
                 if (_V.els.characters.luchador.sprite.currentAnimation == "run" && createjs.Ticker.getTicks() < (_V.els.characters.luchador.startTick + 20)) {
                     _V.els.characters.luchador.sprite.gotoAndPlay("jump");
@@ -206,6 +206,12 @@ window.GAME = (function() {
                         _V.newTerrain = _V.oldTerrain
                         _V.oldTerrain = null;
                     }
+                }
+                if (_V.els.decor.theCloud.sprite.x >= _V.els.stage.canvas.width) {
+                    _V.els.decor.theCloud.sprite.x = -90;
+                    _V.els.decor.theCloud.sprite.y = Math.floor(Math.random()*130);
+                    _V.els.decor.theCloud.sprite.vX = -((_M.speed/5) * Math.random());
+                    _V.els.decor.theCloud.sprite.gotoAndStop(Math.floor(Math.random()*3));
                 }
 
         		_V.els.stage.update();
