@@ -61,7 +61,7 @@ window.GAME = (function() {
                 _V.oldTerrain = null;
 
                 _V.els.stage.addChild(_V.els.debugLabel);
-                _V.els.debugLabel.x = 850;
+                _V.els.debugLabel.x = 800;
                 _V.els.debugLabel.y = 20;
         	},  
         	els: {
@@ -175,18 +175,37 @@ window.GAME = (function() {
                 _M = GAME.model;
                 _V = GAME.view;
                 _C = GAME.controller;
+                _C.gesture = {};
 
                 _V.init();
 
                 _V.els.stage.onMouseMove = _C.events.moveCanvas;
 				_V.els.stage.onMouseDown = _C.events.clickCanvas;
 
+                _C.gesture.startX = -1;
+                _C.gesture.startY = -1;
+                _C.gesture.timeout = -1
+
                 createjs.Ticker.setFPS(20);
  				createjs.Ticker.addListener(_C.tick);
         	},
         	events: {
         		moveCanvas: function (e) {
-        			//console.log(e.stageX);
+                    if ( _C.gesture.startX < 0 && _C.gesture.startY < 0  && _C.gesture.timeout < 0) {
+                        _C.gesture.startX = e.stageX;
+                        _C.gesture.startY = e.stageY;
+                        _C.gesture.timeout = createjs.Ticker.getTicks()+20;
+                    } else  if ( e.stageX > _C.gesture.startX+300){
+                        _V.els.debugLabel.text = "horizontal swipe input";
+                        _C.gesture.startX = -1;
+                        _C.gesture.startY = -1;
+                        _C.gesture.timeout = -1;
+                    }  else  if ( e.stageY > _C.gesture.startY+200){
+                        _V.els.debugLabel.text = "vertical swipe input";
+                        _C.gesture.startX = -1;
+                        _C.gesture.startY = -1;
+                        _C.gesture.timeout = -1;
+                    }
         		},
         		clickCanvas: function (e) {
                     _V.els.debugLabel.text = "click input";
@@ -205,6 +224,13 @@ window.GAME = (function() {
         		}
         	},
         	tick: function () {
+
+                if ( _C.gesture.startX > 0 && _C.gesture.startY > 0 && _C.gesture.timeout <= createjs.Ticker.getTicks() ) {
+                    _C.gesture.startX = -1;
+                    _C.gesture.startY = -1;
+                    _C.gesture.timeout = -1;
+                    _V.els.debugLabel.text = "-- input";
+                }
 
         		_V.currentTerrain.x -= _V.currentTerrain.vX;
                 _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
