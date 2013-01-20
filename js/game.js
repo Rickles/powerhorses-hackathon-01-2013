@@ -35,6 +35,7 @@ window.GAME = (function() {
         		for (var decorElement in _V.els.decor) {
         			_V.els.decor[decorElement].sprite = new createjs.BitmapAnimation(new createjs.SpriteSheet(_V.els.decor[decorElement].data));
         		};
+
                 //Background terrain
         		_V.buildEnvironment();
 
@@ -58,10 +59,15 @@ window.GAME = (function() {
                 _V.currentTerrain = _V.els.decor.theTerrain.sprite;
                 _V.newTerrain = _V.els.decor.theTerrainSecondary.sprite;
                 _V.oldTerrain = null;
+
+                _V.els.stage.addChild(_V.els.debugLabel);
+                _V.els.debugLabel.x = 850;
+                _V.els.debugLabel.y = 20;
         	},  
         	els: {
         		window:                     $(window),
                 document:                   $(document),
+                debugLabel:                   new createjs.Text("-- input","bold 14px Arial","#000"),
                 stage: 						new createjs.Stage(document.getElementById('gameCanvas')),
                 characters: 				{
                 								luchador: 	{
@@ -174,10 +180,11 @@ window.GAME = (function() {
  				createjs.Ticker.addListener(_C.tick);
         	},
         	events: {
-        		moveCanvas: function () {
-        			// console.log("move");
+        		moveCanvas: function (e) {
+        			console.log(e.stageX);
         		},
         		clickCanvas: function (e) {
+                    _V.els.debugLabel.text = "click input";
                     _V.els.characters.luchador.sprite.gotoAndPlay("jump");
                     _V.els.characters.luchador.startTick = createjs.Ticker.getTicks();
                     //console.log(e.stageX, e.stageY);
@@ -201,7 +208,8 @@ window.GAME = (function() {
                 if (createjs.Ticker.getTicks() < (_V.els.characters.luchador.startTick + 5)) {
                     // _V.els.characters.luchador.sprite.gotoAndStop("jump");
                 } else if (_V.els.characters.luchador.sprite.currentAnimation != "run") {
-                    _V.els.characters.luchador.sprite.gotoAndPlay("run");     
+                    _V.els.characters.luchador.sprite.gotoAndPlay("run");
+                     _V.els.debugLabel.text = "-- input";     
                 }
 
                 if (_V.currentTerrain.x <= (_V.els.stage.canvas.width-30)*-1) {
@@ -239,7 +247,7 @@ $(document).ready(function() {
 
  // var imgSeq = new Image();		// The image for the sparkle animation
  // var bmpAnim;						// The animated sparkle template to clone
- // var fpsLabel;
+ // var debugLabel;
 
  // function init() {
  // 	// create a new stage and point it at our canvas:
@@ -261,10 +269,10 @@ $(document).ready(function() {
  // 	bmpAnim = new createjs.BitmapAnimation(new createjs.SpriteSheet(data));
 
  // 	// add a text object to output the current FPS:
- // 	fpsLabel = new createjs.Text("-- fps","bold 14px Arial","#FFF");
- // 	stage.addChild(fpsLabel);
- // 	fpsLabel.x = 10;
- // 	fpsLabel.y = 20;
+ // 	debugLabel = new createjs.Text("-- fps","bold 14px Arial","#FFF");
+ // 	stage.addChild(debugLabel);
+ // 	debugLabel.x = 10;
+ // 	debugLabel.y = 20;
 
  // 	// start the tick and point it at the window so we can do some work before updating the stage:
  // 	createjs.Ticker.setFPS(20);
@@ -294,7 +302,7 @@ $(document).ready(function() {
  // 		}
  // 	}
 
- // 	fpsLabel.text = Math.round(createjs.Ticker.getMeasuredFPS())+" fps";
+ // 	debugLabel.text = Math.round(createjs.Ticker.getMeasuredFPS())+" fps";
 
  // 	// draw the updates to stage
  // 	stage.update();
