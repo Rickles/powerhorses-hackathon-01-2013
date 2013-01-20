@@ -70,6 +70,7 @@ window.GAME = (function() {
                                                                     "frames": [[190, 0, 112, 209, 0, -19, -37], [610, 0, 111, 200, 0, -21, -41], [836, 0, 119, 196, 0, -15, -45], [721, 0, 115, 196, 0, -29, -45], [463, 0, 147, 200, 0, -11, -42], [302, 0, 161, 200, 0, -2, -42], [0, 0, 97, 210, 0, -22, -34], [97, 0, 93, 210, 0, -29, -34], [391, 210, 172, 180, 0, 0, -14], [0, 210, 126, 190, 0, -12, -51], [251, 210, 140, 184, 0, -2, -55], [126, 210, 125, 185, 0, -5, -55]],
                                                                     "animations": {"stand": {"frames": [0]}, "all": {"frames": [11]}, "jump": {"frames": [8]}, "run": {"frames": [1, 2, 2, 3, 4, 5, 5, 6, 7]}, "ouch": {"frames": [9, 10, 11, 9, 10, 11]}}
                                                                 }
+                                                                //170 x 250
                                                 }
                 							},
                 obstacles:                  {
@@ -81,9 +82,11 @@ window.GAME = (function() {
                                                                         }
                                                                     },
                                                                     "images": ["img/spritesheets/barrel.png"],
-                                                                    "frames": [[2, 2, 76, 97, 0, -2, -2]]
+                                                                    "frames": [[2, 2, 76, 97, 0, -2, -2]],
                                                                 },
-                                                                speed: 0
+                                                                speed: 0,
+                                                                width: 30,
+                                                                height: 40,
                                                 }, 
                                                 chili:     {
                                                                 data: {
@@ -183,7 +186,8 @@ window.GAME = (function() {
                     //console.log(e.stageX, e.stageY);
                     for (var obstacle in _V.els.obstacles) {
                         //console.log(_V.els.obstacles[obstacle].sprite.x, _V.els.obstacles[obstacle].sprite.y);
-                        console.log(_V.els.obstacles[obstacle].sprite, _V.els.obstacles[obstacle].sprite )
+                        console.log(_V.els.obstacles[obstacle].sprite, _V.els.obstacles[obstacle].sprite );
+                        console.log(_V.els.obstacles[obstacle].width, "hey");
                     }       
         		}
         	},
