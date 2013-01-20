@@ -12,7 +12,7 @@ window.GAME = (function() {
 
     	/* MODEL */
         model: {
-            speed: 15
+            speed: 1
         },
 
         /* VIEW */
@@ -35,7 +35,7 @@ window.GAME = (function() {
                 _V.els.stage.addChild(_V.els.characters.luchador.sprite);
                 _V.els.characters.luchador.sprite.x = 200;
                 _V.els.characters.luchador.sprite.y = 110;
-                _V.els.characters.luchador.sprite.gotoAndPlay("run");
+                _V.els.characters.luchador.sprite.gotoAndPlay("ouch");
 
                 //Barrel
                 _V.els.stage.addChild(_V.els.obstacles.barrel.sprite);
@@ -49,10 +49,6 @@ window.GAME = (function() {
                 _V.els.obstacles.chili.sprite.y = 180;
                 _V.els.obstacles.chili.sprite.gotoAndStop(0);
 
-                _V.currentTerrain = _V.els.decor.theTerrain.sprite;
-                _V.newTerrain = _V.els.decor.theTerrainSecondary.sprite;
-                _V.oldTerrain = null;
-
         	},  
         	els: {
         		window:                     $(window),
@@ -61,24 +57,19 @@ window.GAME = (function() {
                 characters: 				{
                 								luchador: 	{
                 												data: {
-                                                                    "animations": {
-                                                                        "jump": {"frames": [8]},
-                                                                        "run": {"frames": [1, 2, 2, 3, 4, 5, 5, 6, 7]},
-                                                                        "stand": {"frames": [0]
-                                                                        }
-                                                                    }, 
                                                                     "images": ["img/spritesheets/luchador-spritesheet.png"],
-                                                                    "frames": [[200, 2, 112, 209, 0, -19, -37], [632, 2, 111, 200, 0, -21, -41], [866, 2, 119, 196, 0, -15, -45], [747, 2, 115, 196, 0, -29, -45], [481, 2, 147, 200, 0, -11, -42], [316, 2, 161, 200, 0, -2, -42], [99, 2, 97, 210, 0, -22, -34], [2, 2, 93, 210, 0, -29, -34], [2, 216, 172, 180, 0, 0, -14]]
-															 	}
-                								} 
+                                                                    "frames": [[190, 0, 112, 209, 0, -19, -37], [610, 0, 111, 200, 0, -21, -41], [836, 0, 119, 196, 0, -15, -45], [721, 0, 115, 196, 0, -29, -45], [463, 0, 147, 200, 0, -11, -42], [302, 0, 161, 200, 0, -2, -42], [0, 0, 97, 210, 0, -22, -34], [97, 0, 93, 210, 0, -29, -34], [391, 210, 172, 180, 0, 0, -14], [0, 210, 126, 190, 0, -12, -51], [251, 210, 140, 184, 0, -2, -55], [126, 210, 125, 185, 0, -5, -55]],
+                                                                    "animations": {"stand": {"frames": [0]}, "all": {"frames": [11]}, "jump": {"frames": [8]}, "run": {"frames": [1, 2, 2, 3, 4, 5, 5, 6, 7]}, "ouch": {"frames": [9, 10, 11, 9, 10, 11]}}
+                                                                }
+                                                }
                 							},
                 obstacles:                  {
                                                 barrel:     {
                                                                 data: {
                                                                     "animations": {
-                                                                            "all": {
-                                                                                "frames": [0]
-                                                                            }
+                                                                        "all": {
+                                                                            "frames": [0]
+                                                                        }
                                                                     },
                                                                     "images": ["img/spritesheets/barrel.png"],
                                                                     "frames": [[2, 2, 76, 97, 0, -2, -2]]
@@ -87,14 +78,14 @@ window.GAME = (function() {
                                                 chili:     {
                                                                 data: {
                                                                     "animations": {
-                                                                                "all": {
-                                                                                    "frames": [0]
-                                                                                }
+                                                                        "all": {
+                                                                            "frames": [0]
+                                                                        }
                                                                     },
                                                                     "images": ["img/spritesheets/chili.png"],
                                                                     "frames": [[2, 2, 18, 48, 0, -1, -1]]
                                                                 }
-                                                } 
+                                                }
                                             },
                 decor: 						{
                 								theSun: 	{
@@ -109,12 +100,6 @@ window.GAME = (function() {
 															 		frames: {width:1920,height:331,regX:0,regY:0}
                 												}
                 								},
-                                                theTerrainSecondary: {
-                                                                data: {
-                                                                    images: ["img/spritesheets/terrain.png"],
-                                                                    frames: {width:1920,height:331,regX:0,regY:0}
-                                                                }
-                                                },
                                                 theCloud: {
                                                                 data: {
                                                                     images: ["img/spritesheets/cloud.png"],
@@ -125,33 +110,26 @@ window.GAME = (function() {
         	},
         	buildEnvironment: function () {
         		var theTerrain = _V.els.decor.theTerrain.sprite,
-                    theTerrainSecondary = _V.els.decor.theTerrainSecondary.sprite,
                     theCloud = _V.els.decor.theCloud.sprite,
         			theSun = _V.els.decor.theSun.sprite;
 
         		theSun.x = 800;
         		theSun.y = 10
-                theSun.vX = _M.speed / 50;
+                theSun.vX = _M.speed / 2;
         		theSun.gotoAndPlay(1);
         		_V.els.stage.addChild(theSun);
 
+        		theTerrain.x = 0;
+        		theTerrain.y = 70;
+                theTerrain.vX = _M.speed;
+        		theTerrain.gotoAndPlay(1);
+        		_V.els.stage.addChild(theTerrain);
+
                 theCloud.x = 0;
                 theCloud.y = 70;
-                theCloud.vX = (_M.speed/5) * Math.random();
+                theCloud.vX = (_M.speed * Math.random())+1;
                 theCloud.gotoAndStop(Math.floor(Math.random()*3));
                 _V.els.stage.addChild(theCloud);
-
-                theTerrain.x = 0;
-                theTerrain.y = 70;
-                theTerrain.vX = _M.speed;
-                theTerrain.gotoAndPlay(1);
-                _V.els.stage.addChild(theTerrain);
-
-                theTerrainSecondary.x = _V.els.stage.canvas.width;
-                theTerrainSecondary.y = 70;
-                theTerrainSecondary.vX = _M.speed;
-                theTerrainSecondary.gotoAndPlay(1);
-                _V.els.stage.addChild(theTerrainSecondary);
         	}
         },
 
@@ -176,15 +154,23 @@ window.GAME = (function() {
         			// console.log("move");
         		},
         		clickCanvas: function (e) {
+        			//console.log(e);
                     console.log("hey");
-                    //_V.els.characters.luchador.isJumping = true;
-                    _V.els.characters.luchador.startTick = createjs.Ticker.getTicks();
-                    console.log(_V.els.characters.luchador.sprite.currentAnimation);
-
+                    _V.els.characters.luchador.sprite.gotoAndPlay("jump");
+                    var start = createjs.Ticker.getTicks();
+                        console.log (start);
+                    if (createjs.Ticker.getTicks() > (start + 20)) {
+                        console.log("woah");
+                    }        
         		}
         	},
         	tick: function () {
 
+<<<<<<< HEAD
+        		_V.els.decor.theTerrain.sprite.x -= _V.els.decor.theTerrain.sprite.vX;
+                _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
+                _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
+=======
         		_V.currentTerrain.x -= _V.currentTerrain.vX;
                 _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
                 _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
@@ -214,7 +200,6 @@ window.GAME = (function() {
                 }
 
         		_V.els.stage.update();
-
         	}
         }
     }
