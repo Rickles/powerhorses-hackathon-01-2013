@@ -167,20 +167,17 @@ window.GAME = (function() {
         		}
         	},
         	tick: function () {
-
-<<<<<<< HEAD
                 if (_V.els.characters.luchador.isJumping == true && createjs.Ticker.getTicks() < (_V.els.characters.luchador.startTick + 20)) {
                     _V.els.characters.luchador.sprite.gotoAndPlay("jump");
                 }
                 else {
-=======
         		_V.els.decor.theTerrain.sprite.x -= _V.els.decor.theTerrain.sprite.vX;
                 _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
                 _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
 
                 if (_V.els.decor.theTerrain.sprite.x <= (_V.els.stage.canvas.width)*-1) {
                     console.log("magic hour");
->>>>>>> 0926ad6ad416c1b99e781e866e1532ce45168dc0
+
                 }
 
         		_V.els.stage.update();
@@ -189,7 +186,7 @@ window.GAME = (function() {
         }
     }
 
-}());
+});
 
 $(document).ready(function() {
     GAME.controller.init();
