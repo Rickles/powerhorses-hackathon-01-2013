@@ -12,7 +12,7 @@ window.GAME = (function() {
 
     	/* MODEL */
         model: {
-            speed: 10
+            speed: 15
         },
 
         /* VIEW */
@@ -48,6 +48,10 @@ window.GAME = (function() {
                 _V.els.obstacles.chili.sprite.x = 800;
                 _V.els.obstacles.chili.sprite.y = 180;
                 _V.els.obstacles.chili.sprite.gotoAndStop(0);
+
+                _V.currentTerrain = _V.els.decor.theTerrain.sprite;
+                _V.newTerrain = _V.els.decor.theTerrainSecondary.sprite;
+                _V.oldTerrain = null;
 
         	},  
         	els: {
@@ -105,6 +109,12 @@ window.GAME = (function() {
 															 		frames: {width:1920,height:331,regX:0,regY:0}
                 												}
                 								},
+                                                theTerrainSecondary: {
+                                                                data: {
+                                                                    images: ["img/spritesheets/terrain.png"],
+                                                                    frames: {width:1920,height:331,regX:0,regY:0}
+                                                                }
+                                                },
                                                 theCloud: {
                                                                 data: {
                                                                     images: ["img/spritesheets/cloud.png"],
@@ -115,26 +125,33 @@ window.GAME = (function() {
         	},
         	buildEnvironment: function () {
         		var theTerrain = _V.els.decor.theTerrain.sprite,
+                    theTerrainSecondary = _V.els.decor.theTerrainSecondary.sprite,
                     theCloud = _V.els.decor.theCloud.sprite,
         			theSun = _V.els.decor.theSun.sprite;
 
         		theSun.x = 800;
         		theSun.y = 10
-                theSun.vX = _M.speed / 8;
+                theSun.vX = _M.speed / 50;
         		theSun.gotoAndPlay(1);
         		_V.els.stage.addChild(theSun);
 
                 theCloud.x = 0;
                 theCloud.y = 70;
-                theCloud.vX = (_M.speed/3) * Math.random();
+                theCloud.vX = (_M.speed/5) * Math.random();
                 theCloud.gotoAndStop(Math.floor(Math.random()*3));
                 _V.els.stage.addChild(theCloud);
 
-        		theTerrain.x = 0;
-        		theTerrain.y = 70;
+                theTerrain.x = 0;
+                theTerrain.y = 70;
                 theTerrain.vX = _M.speed;
-        		theTerrain.gotoAndPlay(1);
-        		_V.els.stage.addChild(theTerrain);
+                theTerrain.gotoAndPlay(1);
+                _V.els.stage.addChild(theTerrain);
+
+                theTerrainSecondary.x = _V.els.stage.canvas.width;
+                theTerrainSecondary.y = 70;
+                theTerrainSecondary.vX = _M.speed;
+                theTerrainSecondary.gotoAndPlay(1);
+                _V.els.stage.addChild(theTerrainSecondary);
         	}
         },
 
@@ -171,12 +188,22 @@ window.GAME = (function() {
         	},
         	tick: function () {
 
-        		_V.els.decor.theTerrain.sprite.x -= _V.els.decor.theTerrain.sprite.vX;
+        		_V.currentTerrain.x -= _V.currentTerrain.vX;
                 _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
                 _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
 
-                if (_V.els.decor.theTerrain.sprite.x <= (_V.els.stage.canvas.width)*-1) {
-                    console.log("magic hour");
+                if (_V.currentTerrain.x <= (_V.els.stage.canvas.width-30)*-1) {
+                    _V.oldTerrain = _V.currentTerrain;
+                    _V.currentTerrain = _V.newTerrain;
+                }
+                if (_V.oldTerrain != null) { 
+                    _V.oldTerrain.x -= _V.oldTerrain.vX;
+                    if (_V.oldTerrain.x <= -_V.oldTerrain.spriteSheet._frameWidth) {
+                        _V.oldTerrain.x = _V.els.stage.canvas.width;
+                        _V.oldTerrain.y = 70;
+                        _V.newTerrain = _V.oldTerrain
+                        _V.oldTerrain = null;
+                    }
                 }
 
         		_V.els.stage.update();
