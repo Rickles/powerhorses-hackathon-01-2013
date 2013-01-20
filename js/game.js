@@ -12,7 +12,7 @@ window.GAME = (function() {
 
     	/* MODEL */
         model: {
-            speed: 1
+            speed: 15
         },
 
         /* VIEW */
@@ -49,6 +49,9 @@ window.GAME = (function() {
                 _V.els.obstacles.chili.sprite.y = 180;
                 _V.els.obstacles.chili.sprite.gotoAndStop(0);
 
+                _V.currentTerrain = _V.els.decor.theTerrain.sprite;
+                _V.newTerrain = _V.els.decor.theTerrainSecondary.sprite;
+                _V.oldTerrain = null;
         	},  
         	els: {
         		window:                     $(window),
@@ -100,6 +103,12 @@ window.GAME = (function() {
 															 		frames: {width:1920,height:331,regX:0,regY:0}
                 												}
                 								},
+                                                theTerrainSecondary: {
+                                                                data: {
+                                                                    images: ["img/spritesheets/terrain.png"],
+                                                                    frames: {width:1920,height:331,regX:0,regY:0}
+                                                                }
+                                                },
                                                 theCloud: {
                                                                 data: {
                                                                     images: ["img/spritesheets/cloud.png"],
@@ -110,26 +119,33 @@ window.GAME = (function() {
         	},
         	buildEnvironment: function () {
         		var theTerrain = _V.els.decor.theTerrain.sprite,
+                    theTerrainSecondary = _V.els.decor.theTerrainSecondary.sprite,
                     theCloud = _V.els.decor.theCloud.sprite,
         			theSun = _V.els.decor.theSun.sprite;
 
         		theSun.x = 800;
-        		theSun.y = 10
-                theSun.vX = _M.speed / 2;
-        		theSun.gotoAndPlay(1);
-        		_V.els.stage.addChild(theSun);
-
-        		theTerrain.x = 0;
-        		theTerrain.y = 70;
-                theTerrain.vX = _M.speed;
-        		theTerrain.gotoAndPlay(1);
-        		_V.els.stage.addChild(theTerrain);
+                theSun.y = 10
+                theSun.vX = _M.speed / 50;
+                theSun.gotoAndPlay(1);
+                _V.els.stage.addChild(theSun);
 
                 theCloud.x = 0;
                 theCloud.y = 70;
-                theCloud.vX = (_M.speed * Math.random())+1;
+                theCloud.vX = (_M.speed/5) * Math.random();
                 theCloud.gotoAndStop(Math.floor(Math.random()*3));
                 _V.els.stage.addChild(theCloud);
+
+                theTerrain.x = 0;
+                theTerrain.y = 70;
+                theTerrain.vX = _M.speed;
+                theTerrain.gotoAndPlay(1);
+                _V.els.stage.addChild(theTerrain);
+
+                theTerrainSecondary.x = _V.els.stage.canvas.width;
+                theTerrainSecondary.y = 70;
+                theTerrainSecondary.vX = _M.speed;
+                theTerrainSecondary.gotoAndPlay(1);
+                _V.els.stage.addChild(theTerrainSecondary);
         	}
         },
 
@@ -166,35 +182,18 @@ window.GAME = (function() {
         	},
         	tick: function () {
 
-<<<<<<< HEAD
-        		_V.els.decor.theTerrain.sprite.x -= _V.els.decor.theTerrain.sprite.vX;
-                _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
-                _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
-=======
         		_V.currentTerrain.x -= _V.currentTerrain.vX;
                 _V.els.decor.theSun.sprite.x -= _V.els.decor.theSun.sprite.vX;
                 _V.els.decor.theCloud.sprite.x += _V.els.decor.theCloud.sprite.vX;
 
                 if (_V.els.characters.luchador.sprite.currentAnimation == "run" && createjs.Ticker.getTicks() < (_V.els.characters.luchador.startTick + 20)) {
                     _V.els.characters.luchador.sprite.gotoAndPlay("jump");
-<<<<<<< HEAD
-                }
 
-                else {
-                    if (_V.els.characters.luchador.sprite.currentAnimation == "jump") {
-=======
-                } else {
-                        if (_V.els.characters.luchador.sprite.currentAnimation == "run") {
-                            console.log('nice');
-                        }
-                        else {
->>>>>>> 99665e5be496a58084eb4d2fc0ccb5cbf0542241
                         _V.els.characters.luchador.sprite.gotoAndPlay("run");
                     }
                     else {
                         
                     }
-                }
 
                 if (_V.currentTerrain.x <= (_V.els.stage.canvas.width-30)*-1) {
                     _V.oldTerrain = _V.currentTerrain;
