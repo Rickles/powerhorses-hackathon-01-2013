@@ -184,7 +184,7 @@ window.GAME = (function() {
         	},
         	events: {
         		moveCanvas: function (e) {
-        			console.log(e.stageX);
+        			//console.log(e.stageX);
         		},
         		clickCanvas: function (e) {
                     _V.els.debugLabel.text = "click input";
